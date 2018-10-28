@@ -1,0 +1,17 @@
+{
+	"name": "ArzhonID",
+	"icons": [
+		{
+			"src": "/error-documents/assets/icons/android-chrome-192x192.png?v=1.1",
+			"sizes": "192x192",
+			"type": "image\/png"
+		},
+		{
+			"src": "/error-documents/assets/icons/android-chrome-512x512.png?v=1.1",
+			"sizes": "512x512",
+			"type": "image\/png"
+		}
+	],
+	"theme_color": "#ffffff",
+	"display": "standalone"
+}
