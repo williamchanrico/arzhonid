@@ -5,7 +5,6 @@ steps:
     image: plugins/docker
     settings:
       repo: williamchanrico/arzhonid
-      auto_tag: true
       tags:
         - latest
         - 1.0.0
