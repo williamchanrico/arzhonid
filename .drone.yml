@@ -5,7 +5,9 @@ steps:
     image: plugins/docker
     settings:
       repo: williamchanrico/arzhonid
-      auto_tag: true
+      tags:
+        - latest
+        - 1.0.0
       username:
         from_secret: DOCKER_USERNAME
       password:
