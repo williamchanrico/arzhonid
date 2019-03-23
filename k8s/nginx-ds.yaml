@@ -1,0 +1,74 @@
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      containers:
+      - image: nginx:1.15.3-alpine
+        name: nginx
+        ports:
+        - name: http
+          containerPort: 80
+          hostPort: 80
+        volumeMounts:
+        - name: "config"
+          mountPath: "/etc/nginx"
+        - name: "arzhon-id-tls"
+          mountPath: "/etc/tls/arzhon-id"
+      volumes:
+      - name: config
+        configMap:
+          name: nginx-conf
+      - name: arzhon-id-tls
+        secret:
+          secretName: arzhon-id-tls
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-conf
+data:
+  nginx.conf: |
+    worker_processes 1;
+    error_log /dev/stdout info;
+
+    events {
+      worker_connections 10;
+    }
+
+    http {
+      access_log /dev/stdout;
+
+      server {
+        listen 80 default_server;
+        return 301 https://$server_name$request_uri;
+      }
+
+      server {
+        listen 443 ssl;
+        server_name arzhon.id www.arzhon.id k8s.arzhon.id;
+        ssl_certificate	      /etc/tls/arzhon-id/tls.crt;
+        ssl_certificate_key	  /etc/tls/arzhon-id/tls.key;
+
+        location / {
+          proxy_pass http://arzhonid.default.svc.cluster.local:80;
+        }
+      }
+    }

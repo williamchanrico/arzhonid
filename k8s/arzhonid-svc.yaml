@@ -1,0 +1,12 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: arzhonid
+spec:
+  selector:
+    app: arzhonid
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80

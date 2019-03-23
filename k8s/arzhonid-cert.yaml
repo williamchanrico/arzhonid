@@ -1,0 +1,19 @@
+---
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: arzhon-id
+  namespace: default
+spec:
+  secretName: arzhon-id-tls
+  issuerRef:
+    name: letsencrypt
+  commonName: "*.arzhon.id"
+  dnsNames:
+    - arzhon.id
+  acme:
+    config:
+      - dns01:
+          provider: cf-dns
+        domains:
+          - "arzhon.id"

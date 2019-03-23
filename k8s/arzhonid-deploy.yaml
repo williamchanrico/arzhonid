@@ -1,0 +1,22 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: arzhonid
+  labels:
+    app: arzhonid
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: arzhonid
+  template:
+    metadata:
+      labels:
+        app: arzhonid
+    spec:
+      containers:
+      - name: arzhonid
+        image: williamchanrico/arzhonid:latest
+        ports:
+        - containerPort: 80

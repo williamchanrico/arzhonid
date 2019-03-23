@@ -1,0 +1,36 @@
+# kubectl create secret generic cloudflare --from-literal=email=YOUR_CLOUDFLARE_ACCOUNT_EMAIL_ADDRESS_HERE --from-literal=api-key=YOUR_CLOUDFLARE_GLOBAL_API_KEY_HERE
+# kubectl create clusterrolebinding cluster-admin-binding --clusterrole cluster-admin --user YOUR_EMAIL_ADDRESS_HERE
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudflare-sync
+  labels:
+    app: cloudflare-sync
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cloudflare-sync
+  template:
+    metadata:
+      labels:
+        app: cloudflare-sync
+    spec:
+      serviceAccountName: cloudflare-sync
+      containers:
+      - name: cloudflare-sync
+        image: williamchanrico/k8s-cloudflare-sync:latest
+        args:
+        - --dns-name=k8s.arzhon.id
+        env:
+        - name: CF_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: cloudflare
+              key: api-key
+        - name: CF_API_EMAIL
+          valueFrom:
+            secretKeyRef:
+              name: cloudflare
+              key: email
