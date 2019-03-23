@@ -63,7 +63,7 @@ data:
 
       server {
         listen 443 ssl;
-        server_name k8s.arzhon.id;
+        server_name arzhon.id www.arzhon.id k8s.arzhon.id;
         ssl_certificate	      /etc/tls/arzhon-id/tls.crt;
         ssl_certificate_key	  /etc/tls/arzhon-id/tls.key;
 

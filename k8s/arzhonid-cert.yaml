@@ -8,12 +8,12 @@ spec:
   secretName: arzhon-id-tls
   issuerRef:
     name: letsencrypt
-  commonName: "k8s.arzhon.id"
+  commonName: "*.arzhon.id"
   dnsNames:
-    - k8s.arzhon.id
+    - arzhon.id
   acme:
     config:
       - dns01:
           provider: cf-dns
         domains:
-          - "k8s.arzhon.id"
+          - "arzhon.id"
