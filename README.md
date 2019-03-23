@@ -1,6 +1,8 @@
 # Arzhonid
 
 [![Build Status](https://cloud.drone.io/api/badges/williamchanrico/arzhonid/status.svg)](https://cloud.drone.io/williamchanrico/arzhonid)
+[![Website Status](https://img.shields.io/website/https/arzhon.id.svg)](https://arzhon.id)
+
 
 Personal landing page, something to attach the domain to.
 
