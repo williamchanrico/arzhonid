@@ -1,0 +1,27 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: cloudflare-sync
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: cloudflare-sync
+rules:
+- apiGroups: [""]
+  resources: ["nodes"]
+  verbs: ["list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: cloudflare-sync-viewer
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cloudflare-sync
+subjects:
+- kind: ServiceAccount
+  name: cloudflare-sync
+  namespace: default
