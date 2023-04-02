@@ -1,6 +1,6 @@
 .PHONY: build run push stop test clean all
 
-VERSION        := 1.0.0
+VERSION        := 1.0.1
 IMAGE_TAG      := williamchanrico/arzhonid
 CONTAINER_NAME := arzhonid
 
